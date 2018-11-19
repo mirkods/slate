@@ -2,11 +2,8 @@
 title: API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
-  - shell
-  - ruby
-  - python
-  - javascript
-
+  - Shell
+  
 toc_footers:
   - <a href='#'>Sign Up for a Developer Key</a>
   - <a href='https://github.com/lord/slate'>Documentation Powered by Slate</a>
@@ -19,221 +16,137 @@ search: true
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Welcome to the Talent Garden API! You can use our API endpoints, which can offer to you a set of tools that you can use to build new products.
 
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
-
-This example API documentation page was created with [Slate](https://github.com/lord/slate). Feel free to edit it and use it as a base for your own API's documentation.
+We have language bindings in Shell and you can view code examples in the dark area to the right.
 
 # Authentication
 
 > To authorize, use this code:
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
-
 ```shell
 # With shell, you can just pass the correct header with each request
 curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
+  -H "Authorization: YOUR_API_KEY"
 ```
 
-```javascript
-const kittn = require('kittn');
+> Make sure to replace `YOUR_API_KEY` with your API key.
 
-let api = kittn.authorize('meowmeowmeow');
-```
+Talent Garden uses API keys to allow access to the API. You can have an API key <a mailto="digital@talentgarden.org">getting in touch with us</a>.
 
-> Make sure to replace `meowmeowmeow` with your API key.
+Talent Garden expects for the API key to be included in all API requests to the server in a header that looks like the following:
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
+`Authorization: YOUR_API_KEY`
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+You must replace <code>YOUR_API_KEY</code> with your personal API key.
 </aside>
 
-# Kittens
+# Enrichment
+The Enrichment API lets you look up person and company data based on an email or domain. For example, you could retrieve a person’s name, location and social handles from an email. Or you could lookup a company’s location, headcount or logo based on their domain name.
 
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
+## People
+The Person API lets you retrieve social information associated with an email address, such as a person’s name, location and Twitter handle.
 
 ```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
+curl "https://api.talentgarden.net/enrichment/v1/person?email=alex@alexmaccaw.com"
+  -H "Authorization: YOUR_API_KEY"
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
+{
+  "id": "d54c54ad-40be-4305-8a34-0ab44710b90d",
+  "name": {
+    "fullName": "Alex MacCaw",
+    "givenName": "Alex",
+    "familyName": "MacCaw"
   },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
+  "email": "alex@alexmaccaw.com",
+  "location": "San Francisco, CA, US",
+  "timeZone": "America/Los_Angeles",
+  "utcOffset": -8,
+  "geo": {
+    "city": "San Francisco",
+    "state": "California",
+    "stateCode": "CA",
+    "country": "United States",
+    "countryCode": "US",
+    "lat": 37.7749295,
+    "lng": -122.4194155
+  },
+  "bio": "O'Reilly author, software engineer & traveller. Founder of https://clearbit.com",
+  "site": "http://alexmaccaw.com",
+  "avatar": "https://d1ts43dypk8bqh.cloudfront.net/v1/avatars/d54c54ad-40be-4305-8a34-0ab44710b90d",
+  "employment": {
+    "domain": "clearbit.com",
+    "name": "Clearbit",
+    "title": "Founder and CEO",
+    "role": "ceo",
+    "seniority": "executive"
+  },
+  "facebook": {
+    "handle": "amaccaw"
+  },
+  "github": {
+    "handle": "maccman",
+    "avatar": "https://avatars.githubusercontent.com/u/2142?v=2",
+    "company": "Clearbit",
+    "blog": "http://alexmaccaw.com",
+    "followers": 2932,
+    "following": 94
+  },
+  "twitter": {
+    "handle": "maccaw",
+    "id": "2006261",
+    "bio": "O'Reilly author, software engineer & traveller. Founder of https://clearbit.com",
+    "followers": 15248,
+    "following": 1711,
+    "location": "San Francisco",
+    "site": "http://alexmaccaw.com",
+    "avatar": "https://pbs.twimg.com/profile_images/1826201101/297606_10150904890650705_570400704_21211347_1883468370_n.jpeg"
+  },
+  "linkedin": {
+    "handle": "pub/alex-maccaw/78/929/ab5"
+  },
+  "googleplus": {
+    "handle": null
+  },
+  "gravatar": {
+    "handle": "maccman",
+    "urls": [
+      {
+        "value": "http://alexmaccaw.com",
+        "title": "Personal Website"
+      }
+    ],
+    "avatar": "http://2.gravatar.com/avatar/994909da96d3afaf4daaf54973914b64",
+    "avatars": [
+      {
+        "url": "http://2.gravatar.com/avatar/994909da96d3afaf4daaf54973914b64",
+        "type": "thumbnail"
+      }
+    ]
+  },
+  "fuzzy": false,
+  "emailProvider": false,
+  "indexedAt": "2016-11-07T00:00:00.000Z"
+}
 ```
 
-This endpoint retrieves all kittens.
+This endpoint retrieves all informations about a person.
 
 ### HTTP Request
 
-`GET http://example.com/api/kittens`
+`GET https://api.talentgarden.net/enrichment/v1/person?email=:email`
 
 ### Query Parameters
 
-Parameter | Default | Description
+Parameter | Required | Description
 --------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+email | true | the person’s email address
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
+<aside class="notice">
+This API is private. If you don't have an API KEY <a mailto="digital@talentgarden.org">get in touch with us</a>
 </aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
-```
-
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-### HTTP Request
-
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
-
-## Delete a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -X DELETE
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "deleted" : ":("
-}
-```
-
-This endpoint deletes a specific kitten.
-
-### HTTP Request
-
-`DELETE http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
-
